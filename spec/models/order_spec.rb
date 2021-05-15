@@ -6,7 +6,7 @@ RSpec.describe Order, type: :model do
   end
 
   context '内部に問題がない場合' do
-    it "priceがあれば保存できること" do
+    it "priceとtokenがあれば保存できること" do
       expect(@order).to be_valid
     end
   end
@@ -16,6 +16,11 @@ RSpec.describe Order, type: :model do
       @order.price = nil
       @order.valid?
       expect(@order.errors.full_messages).to include("Price can't be blank")
+    end
+    it "tokenがからでは保存できないこと" do
+      @order.token = nil
+      @order.valid?
+      expect(@order.errors.full_messages).to include("Token can't be blank")
     end
   end
 end
